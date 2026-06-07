@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  PROFESSOR
+  ALUNO
+}
+
+model User {
+  id          String      @id @default(uuid())
+  email       String      @unique
+  password    String      
+  name        String
+  role        Role        @default(ALUNO)
+  createAt    DateTime    @default(now())
+}
+
+
+model LogAcesso {
+  id          String   @id @default(uuid())
+  userId      String
+  email       String
+  ip          String?
+  dataAcesso  DateTime @default(now())
+
+  @@map("log_acesso")
+}
+
+
+model Auditoria {
+  id            String   @id @default(uuid())
+  tabela        String   
+  registroId    String   
+  usuarioId     String?   
+  acao          String   
+  dadosAnteriores String? 
+  dadosNovos      String?
+  dataCriacao   DateTime @default(now())
+
+  @@map("auditoria")
+}
