@@ -2,7 +2,6 @@ import { Hono } from 'hono';
 import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 import { UserPayload } from '../types/auth';
 import { registerUser, login } from '../controllers/user.controller';
-import { getAcessoLog } from '../services/log.service';
 import { prisma } from '../lib/prisma';
 
 const userRoutes = new Hono();
